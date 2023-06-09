@@ -1,8 +1,5 @@
-# Correct habits to mayusc in SQL
-# Retorn dictionary in function get_habits()
 
 import pymysql
-
 
 def main():
     ...
@@ -39,6 +36,18 @@ def add_to_historial(id):
     cursor.execute(sql, (id))
     conn.commit()
     conn.close
+
+def get_acumulated_rewards():
+
+    conn = connect_to_database()
+
+    cursor = conn.cursor()
+    sql = 'CALL get_acumulated_rewards;'
+    cursor.execute(sql)
+    rewards = cursor.fetchall()
+
+    return(rewards)
+
 
 
 if __name__ == "__main__":

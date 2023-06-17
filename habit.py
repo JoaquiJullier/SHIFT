@@ -1,8 +1,10 @@
-
 import pymysql
+import pandas as pd
+import Reward from rewards
 
 def main():
-    ...
+
+    print(get_acumulated_rewards())
 
 
 def connect_to_database():
@@ -46,9 +48,21 @@ def get_acumulated_rewards():
     cursor.execute(sql)
     rewards = cursor.fetchall()
 
-    return(rewards)
+    column_names = [column[0] for column in cursor.description]
+    rw = pd.DataFrame(rewards, columns=column_names)
+    rw.set_index('id', inplace=True)
 
+    return(rw)
 
+def add_reward(reward_id):
+
+    conn = connect_to_database()
+
+    cursor = conn.cursor()
+    sql = 'CALL add_reward(%s);'
+    cursor.execute(sql, (reward_id))
+    conn.commit()
+    conn.close
 
 if __name__ == "__main__":
     main()

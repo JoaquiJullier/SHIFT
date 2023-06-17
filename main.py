@@ -1,16 +1,17 @@
 ''' EXPANTIONS
-    1 - Implement rewards storage    
+    1 - Implement object oriented paradigme
+    2 - Implement frecuency calculation
 
     UPDATES
     1 - Search for optimizarion to apply updates 2 and 3
-    2 - Implement pandas or numphy in habit.get_habits() and habits.get_acumulated_rewards()
+    2 - Implement pandas or numphy in habit.get_habits()
     3 - Implement procedures in SQL when needed
 '''
 
 import habit
 import random
 import habit
-
+from objects import reward
 
 def main():
 
@@ -29,7 +30,7 @@ def main():
             add_habit_done()
             break
         elif action == '2':
-            get_acumulated_rewards()
+            reward.get_acumulated()
             break
         else:
             print('WRONG INPUT')
@@ -81,7 +82,7 @@ def check_for_reward(habit_id):
     if habits[habit_id-1][1] == 1:
         reward = generate_reward()
         print('REWARD:', reward)
-        add_reward_to_acumulated(reward)
+        habit.add_reward(reward)
     elif habits[habit_id-1][1] == 0:
         print('REWARD: None')
     else:
@@ -102,7 +103,7 @@ def generate_reward():
         if h[1] == 1:
             shots += float(h[3])
         elif h[1] == 0:
-            possible_rewards.append(h[2])
+            possible_rewards.append(h[0])
             reward_probabilities.append(float(h[3]))
         else:
             print('ERROR')
@@ -111,13 +112,10 @@ def generate_reward():
         n_reward_probabilities.append(rp / shots)
         rest -= (rp / shots)
 
-    possible_rewards.append('None')
+    possible_rewards.append(0)
     n_reward_probabilities.append(rest)
 
     return random.choices(possible_rewards, n_reward_probabilities)[0]
-
-def add_reward_to_acumulated(reward):
-    ...
 
 def get_acumulated_rewards():
     

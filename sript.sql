@@ -84,3 +84,20 @@ DELIMITER ;
 CALL get_acumulated_rewards;
 
 SELECT * FROM historial;
+
+
+
+
+SELECT * FROM acumulated_rewards;
+
+DROP PROCEDURE IF EXISTS add_reward;
+DELIMITER //
+CREATE PROCEDURE add_reward(IN reward_id INT)
+BEGIN
+	UPDATE acumulated_rewards
+    SET quantity = quantity + 1
+    WHERE id = reward_id;
+END //
+DELIMITER ;
+        
+CALL add_reward(3);

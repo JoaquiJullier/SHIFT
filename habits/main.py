@@ -11,7 +11,7 @@
 import habit
 import random
 import habit
-from objects import reward
+from habits.objects import reward
 
 def main():
 

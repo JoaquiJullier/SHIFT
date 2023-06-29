@@ -101,3 +101,7 @@ END //
 DELIMITER ;
         
 CALL add_reward(3);
+
+INSERT INTO acumulated_rewards(id, name, quantity)
+VALUES(0, 'Nothing', 0);
+

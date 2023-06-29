@@ -1,8 +1,6 @@
 import pymysql
 import pandas as pd
 
-
-
 class Reward:
     def __init__(self):
         self.conn = pymysql.connect(
